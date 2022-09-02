@@ -1,3 +1,5 @@
+Implementation of COLING 2022 Oral presentation paper ["SelF-Eval: Self-supervised Fine-grained Dialogue Evaluation"](https://arxiv.org/abs/2208.08094).
+
 ## Prerequisites
 
 Install the required packages:
