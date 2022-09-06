@@ -15,7 +15,7 @@ pip install .
 
 ## Training
 
-When training, make sure the CHECKPOINT_DIR_PATH key in pretrain.sh is a directory path. 
+When training, make sure the CHECKPOINT_DIR_PATH key in pretrain.sh is a directory path. This will be the path where we store our checkpoints and experiments.
 
 ```
 sh pretrain.sh
