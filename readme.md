@@ -1,8 +1,12 @@
 Implementation of COLING 2022 Oral presentation paper ["SelF-Eval: Self-supervised Fine-grained Dialogue Evaluation"](https://arxiv.org/abs/2208.08094).
 
 ## Prerequisites
+First create an environment:
+```
+conda create -n self python=3.6
+```
 
-Install the required packages:
+Then install the required packages:
 ```
 pip install -r requirements.txt
 ```

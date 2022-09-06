@@ -17,7 +17,7 @@ class HumanJudgementDatasetContest:
     def __init__(self,
                 dataset_name, score_whole_dialog=True):
         self.dataset_name = dataset_name+'_eval.json'
-        contest_data_dir = '../human_evaluation_data'
+        contest_data_dir = './human_evaluation_data'
         self.data_dir_path = os.path.join(contest_data_dir, self.dataset_name)
         if dataset_name in ['persona-see', 'fed-dial', 'dstc9']:
             #self.data_list = self._load_multi_turn_data()
