@@ -15,7 +15,7 @@ DATA=./dataset/dailydialog++
 SPLIT2FOUR=False
 MODEL=roberta_metric
 TRAINER=mlr_pretrain
-MODE=test
+MODE=train
 TRAIN_MODE=medium
 
 TRAIN_BATCH_SIZE=1
@@ -38,7 +38,7 @@ CHECKPOINT_DIR_PATH=./output/$SEED/roberta_pretrain
 LOGGING_LEVEL=INFO
 CENTROID_MODE=mean
 DISTANCE_MODE=cosine
-PRETRAINED_MODEL_NAME=roberta-base
+PRETRAINED_MODEL_NAME=roberta-large
 
 
 # Returns to main directory

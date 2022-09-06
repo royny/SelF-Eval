@@ -30,7 +30,13 @@ class Trainer:
         self.num_epochs = args.num_epochs
         self.learning_rate = args.learning_rate
         self.gpu = args.gpu
-        self.checkpoint_dir_path = args.checkpoint_dir_path
+        if os.path.isdir(args.checkpoint_dir_path):
+            self.checkpoint_dir_path = args.checkpoint_dir_path
+            self.checkpoint_file_path = args.checkpoint_dir_path
+        else:
+            self.checkpoint_dir_path = os.path.dirname(args.checkpoint_dir_path)
+            self.checkpoint_file_path = args.checkpoint_dir_path
+
         self.display_steps = args.display_steps
         self.monitor_metric_list = [
             {'name': n, 'type': t}
@@ -50,7 +56,7 @@ class Trainer:
         }
         self._create_output_dir()
         self.evaluator = Evaluator(
-            checkpoint_dir_path=args.checkpoint_dir_path,            
+            checkpoint_dir_path=self.checkpoint_dir_path,            
             console_output=False)
 
 
@@ -87,17 +93,17 @@ class Trainer:
                 self.model,
                 additional_eval_info='train_epoch{}'.format(self.cur_epoch_id))
             
-            torch.save(self.model.state_dict(), self.checkpoint_file_path)
+            torch.save(self.model.state_dict(), self.checkpoint_file_path+'/tr_epoc_{}'.format(self.cur_epoch_id))
 
     def _test(self):
         for metric in self.monitor_metric_list:
             self.cur_monitor_metric = metric
-            for epoch_id in tqdm(range(self.num_epochs)):
+            for epoch_id in tqdm(range(1)):
                 self.cur_epoch_id = epoch_id
                 self._load()
                 self.evaluator.evaluate(
                     self.model,
-                    additional_eval_info='train_epoch{}'.format(self.cur_epoch_id))
+                    additional_eval_info='test_epoch{}'.format(self.cur_epoch_id))
                 
            
 
@@ -166,7 +172,7 @@ class Trainer:
         return self.num_train_steps_per_epoch * self.num_epochs
 
 
-    @property
-    def checkpoint_file_path(self):
-        return self.checkpoint_dir_path
+    #@property
+    #def checkpoint_file_path(self):
+    #    return self.checkpoint_dir_path
     

@@ -18,7 +18,7 @@ class Evaluator:
     def __init__(self,
                  checkpoint_dir_path,
                  eval_data_dir_path='./evaluation/eval_data',
-                 result_file_name='d_score_tt_results.txt',
+                 result_file_name='results.txt',
                  datasets=['fed-dial', 'dstc9','fed-turn'],
                  eval_mode='mix',
                  score_whole_dialog=True,
@@ -68,10 +68,12 @@ class Evaluator:
             [result[0] for result in correlation_results.values()])
         if diag:
             table_row = [quality_name+'/diag'] + list(result_dict.values())
-        else:
-            table_row = [quality_name] + list(result_dict.values())
-        self.table_recorder.add_row(table_row=table_row,
+            self.table_recorder.add_row(table_row=table_row,
                                     table_name=dataset_name)
+        #else:
+            #table_row = [quality_name] + list(result_dict.values())
+        #self.table_recorder.add_row(table_row=table_row,
+         #                           table_name=dataset_name)
 
     def _evaluate_mix(self):
         """Uses mix data to evaluate the specified metric model.
@@ -99,9 +101,13 @@ class Evaluator:
                   self.write_cor_score(predicted_scores, human_scores[i], empty_score_indices, i, dataset_name)
                   self.write_cor_score(d_score, human_scores[i], empty_score_indices, i, dataset_name, diag=True)
 
-
-            pred_score_dir_path = os.path.join(
-                self.checkpoint_dir_path, 'predicted_scores/contest')
+            if os.path.isdir(self.checkpoint_dir_path):
+                pred_score_dir_path = os.path.join(
+                    self.checkpoint_dir_path, 'predicted_scores/contest')
+            else:
+                pred_score_dir_path = os.path.join(
+                    os.path.dirname(self.checkpoint_dir_path), 'predicted_scores/contest')
+            
             if not os.path.exists(pred_score_dir_path):
                 os.makedirs(pred_score_dir_path)
 
